@@ -112,6 +112,30 @@ document.addEventListener('DOMContentLoaded', () => {
                 makeDraggable(attachedImg); // Make attached image draggable
                 console.log('Attached image created and made draggable.', attachedImg);
             }
+
+            // Update Open Graph and Twitter Card meta tags
+            const ogTitle = document.querySelector('meta[property="og:title"]');
+            const ogDescription = document.querySelector('meta[property="og:description"]');
+            const ogImage = document.querySelector('meta[property="og:image"]');
+            const ogUrl = document.querySelector('meta[property="og:url"]'); // Assuming a static URL for now
+
+            const twitterTitle = document.querySelector('meta[property="twitter:title"]');
+            const twitterDescription = document.querySelector('meta[property="twitter:description"]');
+            const twitterImage = document.querySelector('meta[property="twitter:image"]');
+            const twitterUrl = document.querySelector('meta[property="twitter:url"]'); // Assuming a static URL for now
+
+            if (ogTitle) ogTitle.content = `Friend of the Week: ${data.name || 'Unknown Friend'}`;
+            if (ogDescription) ogDescription.content = data.desc || 'Check out this week\'s most appreciated friend!';
+            if (ogImage) ogImage.content = data.pfp_image || data.attached_image || 'https://via.placeholder.com/1200x630/000000/FFFFFF?text=Friend+of+the+Week';
+            // if (ogUrl) ogUrl.content = window.location.href; // Dynamically set URL if needed
+
+            if (twitterTitle) twitterTitle.content = `Friend of the Week: ${data.name || 'Unknown Friend'}`;
+            if (twitterDescription) twitterDescription.content = data.desc || 'Check out this week\'s most appreciated friend!';
+            if (twitterImage) twitterImage.content = data.pfp_image || data.attached_image || 'https://via.placeholder.com/1200x630/000000/FFFFFF?text=Friend+of+the+Week';
+            // if (twitterUrl) twitterUrl.content = window.location.href; // Dynamically set URL if needed
+
+            // Also update the document title
+            document.title = `Friend of the Week: ${data.name || 'Unknown Friend'}`;
         })
         .catch(error => {
             console.error('Error fetching friend data:', error);
